@@ -14,6 +14,7 @@ wheels/
 hive-mind-prompt-*.txt
 
 # Claude Flow generated files
+.claude
 .claude/settings.local.json
 .mcp.json
 claude-flow.config.json
@@ -39,3 +40,6 @@ coordination/orchestration/*
 claude-flow
 # Removed Windows wrapper files per user request
 hive-mind-prompt-*.txt
+# OSX
+.DS_Store
+
