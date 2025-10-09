@@ -1,0 +1,98 @@
+# Build Configuration for Markdown Documentation System
+
+# Project metadata
+project:
+  name: "Corona Digital CX Standard"
+  title: "Digital Commissioning of Building Automation Systems (BAS)"
+  author: "Corona Digital CX Working Group"
+  version: "0.2"
+  date: "October 9, 2025"
+  status: "Draft Specification"
+  license: "CC BY-SA 4.0"
+  description: "Open standard for digital commissioning of building automation systems"
+
+# Build settings
+build:
+  # Source directory containing markdown files
+  source_dir: "docs/sections"
+
+  # Output directory for generated files
+  output_dir: "dist"
+
+  # Output filename (without extension)
+  output_name: "digital-commissioning-bas-standard"
+
+  # Template directory for HTML/PDF styling
+  template_dir: "config/templates"
+
+  # Assets directory (images, etc.)
+  assets_dir: "docs/assets"
+
+# PDF generation settings
+pdf:
+  # Page format (A4, Letter, Legal)
+  page_size: "A4"
+
+  # Margins (in mm)
+  margins:
+    top: 20
+    bottom: 20
+    left: 20
+    right: 20
+
+  # Font settings
+  fonts:
+    base_size: 11
+    code_size: 9
+    heading_scale: 1.2
+
+  # Enable/disable features
+  features:
+    table_of_contents: true
+    page_numbers: true
+    syntax_highlighting: true
+    image_optimization: true
+
+# Markdown processing
+markdown:
+  # Extensions to enable
+  extensions:
+    - "markdown.extensions.extra"
+    - "markdown.extensions.codehilite"
+    - "markdown.extensions.toc"
+    - "markdown.extensions.tables"
+    - "markdown.extensions.fenced_code"
+    - "pymdownx.superfences"
+    - "pymdownx.inlinehilite"
+    - "pymdownx.magiclink"
+    - "pymdownx.tasklist"
+
+  # Extension configuration
+  extension_configs:
+    codehilite:
+      guess_lang: false
+      linenums: true
+    toc:
+      permalink: true
+      toc_depth: 3
+
+# Release automation
+release:
+  # Git tag prefix
+  tag_prefix: "v"
+
+  # Generate changelog
+  changelog: true
+
+  # Attach artifacts to release
+  attach_pdf: true
+  attach_html: true
+
+  # Release notes template
+  notes_template: "config/templates/release_notes.md"
+
+# File ordering (if not using numeric prefixes)
+# order:
+#   - "introduction.md"
+#   - "getting-started.md"
+#   - "advanced.md"

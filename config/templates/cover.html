@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ project.name }}</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .cover {
+            text-align: center;
+            padding-top: 150pt;
+            min-height: 100vh;
+        }
+        .cover h1 {
+            font-size: 36pt;
+            margin-bottom: 20pt;
+            color: #1a1a1a;
+        }
+        .cover .subtitle {
+            font-size: 18pt;
+            color: #666;
+            margin-bottom: 40pt;
+        }
+        .cover .version {
+            font-size: 14pt;
+            color: #666;
+            margin-top: 30pt;
+        }
+        .cover .author {
+            font-size: 12pt;
+            color: #666;
+            margin-top: 10pt;
+        }
+        .cover .date {
+            font-size: 10pt;
+            color: #999;
+            margin-top: 50pt;
+        }
+        .cover .license {
+            font-size: 9pt;
+            color: #999;
+            margin-top: 100pt;
+        }
+    </style>
+</head>
+<body>
+    <div class="cover">
+        <h1>{{ project.name }}</h1>
+        {% if subtitle %}
+        <div class="subtitle">{{ subtitle }}</div>
+        {% endif %}
+        <div class="version">Version {{ project.version }}</div>
+        <div class="author">{{ project.author }}</div>
+        <div class="date">{{ build_date }}</div>
+        <div class="license">
+            This work is licensed under {{ project.license }}<br>
+            Creative Commons Attribution-ShareAlike 4.0 International
+        </div>
+    </div>
+</body>
+</html>

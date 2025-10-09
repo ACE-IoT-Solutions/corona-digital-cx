@@ -1,0 +1,242 @@
+/* PDF Styling for Documentation */
+
+/* Page setup */
+@page {
+    size: A4;
+    margin: 20mm;
+
+    @top-center {
+        content: string(chapter);
+        font-size: 9pt;
+        color: #666;
+    }
+
+    @bottom-center {
+        content: "Page " counter(page) " of " counter(pages);
+        font-size: 9pt;
+        color: #666;
+    }
+}
+
+@page :first {
+    @top-center { content: none; }
+    @bottom-center { content: none; }
+}
+
+/* Base typography */
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.6;
+    color: #333;
+    max-width: 100%;
+}
+
+/* Headings */
+h1 {
+    font-size: 24pt;
+    font-weight: bold;
+    color: #1a1a1a;
+    margin-top: 30pt;
+    margin-bottom: 15pt;
+    page-break-after: avoid;
+    string-set: chapter content();
+}
+
+h2 {
+    font-size: 18pt;
+    font-weight: bold;
+    color: #2c2c2c;
+    margin-top: 24pt;
+    margin-bottom: 12pt;
+    page-break-after: avoid;
+    border-bottom: 2pt solid #e0e0e0;
+    padding-bottom: 6pt;
+}
+
+h3 {
+    font-size: 14pt;
+    font-weight: bold;
+    color: #3c3c3c;
+    margin-top: 18pt;
+    margin-bottom: 9pt;
+    page-break-after: avoid;
+}
+
+h4, h5, h6 {
+    font-size: 12pt;
+    font-weight: bold;
+    color: #4c4c4c;
+    margin-top: 12pt;
+    margin-bottom: 6pt;
+    page-break-after: avoid;
+}
+
+/* Paragraphs */
+p {
+    margin: 0 0 12pt 0;
+    text-align: justify;
+}
+
+/* Links */
+a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Code blocks */
+pre {
+    background-color: #f5f5f5;
+    border: 1pt solid #ddd;
+    border-radius: 3pt;
+    padding: 12pt;
+    margin: 12pt 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 9pt;
+    line-height: 1.4;
+    overflow-x: auto;
+    page-break-inside: avoid;
+}
+
+code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 9pt;
+    background-color: #f5f5f5;
+    padding: 2pt 4pt;
+    border-radius: 2pt;
+}
+
+pre code {
+    background-color: transparent;
+    padding: 0;
+}
+
+/* Lists */
+ul, ol {
+    margin: 12pt 0;
+    padding-left: 30pt;
+}
+
+li {
+    margin: 6pt 0;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12pt 0;
+    page-break-inside: avoid;
+}
+
+th {
+    background-color: #f0f0f0;
+    border: 1pt solid #ddd;
+    padding: 8pt;
+    text-align: left;
+    font-weight: bold;
+}
+
+td {
+    border: 1pt solid #ddd;
+    padding: 8pt;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 4pt solid #ddd;
+    margin: 12pt 0;
+    padding-left: 16pt;
+    color: #666;
+    font-style: italic;
+}
+
+/* Images */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 12pt auto;
+    page-break-inside: avoid;
+}
+
+/* Horizontal rules */
+hr {
+    border: none;
+    border-top: 1pt solid #ddd;
+    margin: 24pt 0;
+}
+
+/* Table of contents */
+.toc {
+    page-break-after: always;
+    margin-bottom: 30pt;
+}
+
+.toc h2 {
+    border-bottom: none;
+}
+
+.toc ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.toc li {
+    margin: 6pt 0;
+}
+
+.toc a {
+    text-decoration: none;
+    color: #333;
+}
+
+.toc a::after {
+    content: leader('.') target-counter(attr(href), page);
+}
+
+/* Page breaks */
+.page-break {
+    page-break-after: always;
+}
+
+.avoid-break {
+    page-break-inside: avoid;
+}
+
+/* Cover page */
+.cover {
+    text-align: center;
+    padding-top: 100pt;
+}
+
+.cover h1 {
+    font-size: 36pt;
+    margin-bottom: 20pt;
+}
+
+.cover .version {
+    font-size: 14pt;
+    color: #666;
+    margin-top: 30pt;
+}
+
+.cover .author {
+    font-size: 12pt;
+    color: #666;
+    margin-top: 10pt;
+}
+
+.cover .date {
+    font-size: 10pt;
+    color: #999;
+    margin-top: 50pt;
+}

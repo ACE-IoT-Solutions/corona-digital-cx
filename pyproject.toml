@@ -1,0 +1,55 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "corona-digital-cx"
+version = "0.1.0"
+description = "Markdown documentation build system with PDF compilation and automated releases"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "markdown>=3.7",
+    "pymdown-extensions>=10.12",
+    "weasyprint>=62.3",
+    "pygments>=2.18.0",
+    "pyyaml>=6.0.2",
+    "gitpython>=3.1.43",
+    "jinja2>=3.1.4",
+    "pillow>=11.0.0",
+    "click>=8.1.7",
+]
+
+[tool.uv]
+package = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[dependency-groups]
+dev = [
+    "pyrefly>=0.36.2",
+    "pytest>=8.4.2",
+    "pytest-cov>=6.0.0",
+    "ruff>=0.14.0",
+]
+
+[project.scripts]
+mdoc-build = "src.builder.cli:build"
+mdoc-release = "src.builder.cli:release"
+mdoc-validate = "src.builder.cli:validate"
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "B", "C", "UP"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --cov=src --cov-report=term-missing"
