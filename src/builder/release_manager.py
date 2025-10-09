@@ -1,6 +1,8 @@
 """Git release automation and version management."""
 
+import os
 import re
+import subprocess
 from datetime import datetime
 from pathlib import Path
 from typing import List, Optional
@@ -258,3 +260,119 @@ Generated on {datetime.now().strftime("%Y-%m-%d")}
             "current_version": self.get_current_version(),
             "tags": self.get_version_tags()[:5],  # Last 5 tags
         }
+
+    def get_remote_url(self, remote: str = "origin") -> Optional[str]:
+        """
+        Get GitHub repository URL from remote.
+
+        Args:
+            remote: Remote name (default: origin)
+
+        Returns:
+            GitHub repo identifier (owner/repo) or None
+        """
+        try:
+            remote_obj = self.repo.remote(remote)
+            url = remote_obj.url
+
+            # Parse GitHub URL (both HTTPS and SSH)
+            # HTTPS: https://github.com/owner/repo.git
+            # SSH: git@github.com:owner/repo.git
+            if "github.com" in url:
+                if url.startswith("git@"):
+                    # SSH format
+                    repo_part = url.split(":")[-1]
+                else:
+                    # HTTPS format
+                    repo_part = url.split("github.com/")[-1]
+
+                # Remove .git suffix
+                repo_part = repo_part.rstrip("/").replace(".git", "")
+                return repo_part
+        except Exception:
+            pass
+
+        return None
+
+    def create_github_release(
+        self,
+        version: str,
+        release_notes: str,
+        artifacts: Optional[List[Path]] = None,
+        draft: bool = False,
+        prerelease: bool = False,
+    ) -> bool:
+        """
+        Create GitHub release with artifacts using gh CLI.
+
+        Args:
+            version: Version tag
+            release_notes: Release notes content
+            artifacts: List of files to attach to release
+            draft: Create as draft release
+            prerelease: Mark as prerelease
+
+        Returns:
+            True if successful, False otherwise
+        """
+        # Check if gh CLI is available
+        try:
+            subprocess.run(
+                ["gh", "--version"],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            print("Warning: gh CLI not found. Install from https://cli.github.com/")
+            print("Skipping GitHub release creation. Tag created successfully.")
+            return False
+
+        # Check if we're in a GitHub repo
+        repo_id = self.get_remote_url()
+        if not repo_id:
+            print("Warning: Not a GitHub repository or remote not configured.")
+            print("Skipping GitHub release creation. Tag created successfully.")
+            return False
+
+        prefix = self.config.tag_prefix
+        tag_name = f"{prefix}{version}"
+
+        # Prepare gh release create command
+        cmd = [
+            "gh",
+            "release",
+            "create",
+            tag_name,
+            "--title",
+            f"Release {version}",
+            "--notes",
+            release_notes,
+        ]
+
+        if draft:
+            cmd.append("--draft")
+
+        if prerelease:
+            cmd.append("--prerelease")
+
+        # Add artifacts
+        if artifacts:
+            for artifact in artifacts:
+                if artifact.exists():
+                    cmd.append(str(artifact))
+
+        try:
+            result = subprocess.run(
+                cmd,
+                check=True,
+                capture_output=True,
+                text=True,
+                cwd=self.repo.working_dir,
+            )
+            print(f"✓ GitHub release created: {result.stdout.strip()}")
+            return True
+        except subprocess.CalledProcessError as e:
+            print(f"Warning: Failed to create GitHub release: {e.stderr}")
+            print("Tag created successfully, but GitHub release failed.")
+            return False

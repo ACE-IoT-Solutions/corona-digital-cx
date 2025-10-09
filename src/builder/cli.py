@@ -103,11 +103,13 @@ def build(config, pdf, html, output_dir, verbose):
 )
 @click.option("--version", "-V", help="Specific version to release")
 @click.option("--message", "-m", help="Release message")
-@click.option("--push/--no-push", default=False, help="Push tags to remote")
+@click.option("--push/--no-push", default=False, help="Push tags and create GitHub release")
 @click.option("--build/--no-build", "do_build", default=True, help="Build before releasing")
+@click.option("--draft", is_flag=True, help="Create as draft release")
+@click.option("--prerelease", is_flag=True, help="Mark as prerelease")
 @click.option("--verbose", "-v", is_flag=True, help="Verbose output")
-def release(config, bump, version, message, push, do_build, verbose):
-    """Create a new release with git tag."""
+def release(config, bump, version, message, push, do_build, draft, prerelease, verbose):
+    """Create a new release with git tag and optional GitHub release."""
     try:
         # Load configuration
         click.echo("Loading configuration...")
@@ -134,10 +136,20 @@ def release(config, bump, version, message, push, do_build, verbose):
         click.echo(f"Creating release: {new_version}")
 
         # Build documentation
+        artifacts = []
         if do_build:
             click.echo("Building documentation...")
             ctx = click.get_current_context()
-            ctx.invoke(build, config=config, verbose=verbose)
+            ctx.invoke(build, config=config, pdf=True, html=True, verbose=verbose)
+
+            # Collect artifacts
+            pdf_path = build_config.output_dir / f"{build_config.output_name}.pdf"
+            html_path = build_config.output_dir / f"{build_config.output_name}.html"
+
+            if pdf_path.exists():
+                artifacts.append(pdf_path)
+            if html_path.exists():
+                artifacts.append(html_path)
 
         # Generate changelog and release notes
         click.echo("Generating release notes...")
@@ -156,11 +168,27 @@ def release(config, bump, version, message, push, do_build, verbose):
         tag_name = release_mgr.create_tag(new_version, tag_message)
         click.echo(f"  ✓ Tag created: {tag_name}")
 
-        # Push to remote
+        # Push to remote and create GitHub release
         if push:
             click.echo("Pushing tags to remote...")
             release_mgr.push_tags()
             click.echo("  ✓ Tags pushed")
+
+            # Create GitHub release with artifacts
+            click.echo("Creating GitHub release...")
+            success = release_mgr.create_github_release(
+                version=new_version,
+                release_notes=notes,
+                artifacts=artifacts,
+                draft=draft,
+                prerelease=prerelease,
+            )
+
+            if not success:
+                click.echo("\n💡 To enable GitHub releases:")
+                click.echo("   1. Install gh CLI: https://cli.github.com/")
+                click.echo("   2. Authenticate: gh auth login")
+                click.echo("   3. Re-run this command with --push")
 
         # Save release notes
         notes_path = build_config.output_dir / f"RELEASE-{new_version}.md"
@@ -173,7 +201,7 @@ def release(config, bump, version, message, push, do_build, verbose):
 
         if not push:
             click.echo(
-                "\n⚠ Tags not pushed to remote. Run with --push to publish."
+                "\n⚠ Tags not pushed to remote. Run with --push to publish and create GitHub release."
             )
 
     except Exception as e:
