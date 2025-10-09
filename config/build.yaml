@@ -13,8 +13,8 @@ project:
 
 # Build settings
 build:
-  # Source directory containing markdown files
-  source_dir: "docs/sections"
+  # Source directory containing markdown files for the standard
+  source_dir: "standard/sections"
 
   # Output directory for generated files
   output_dir: "dist"
@@ -25,8 +25,8 @@ build:
   # Template directory for HTML/PDF styling
   template_dir: "config/templates"
 
-  # Assets directory (images, etc.)
-  assets_dir: "docs/assets"
+  # Assets directory (images, diagrams, etc. for the standard)
+  assets_dir: "standard/assets"
 
 # PDF generation settings
 pdf:
