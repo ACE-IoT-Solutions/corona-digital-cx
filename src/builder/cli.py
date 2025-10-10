@@ -174,17 +174,42 @@ def release(config, bump, version, message, push, do_build, draft, prerelease, v
         artifacts = []
         if do_build:
             click.echo("Building documentation with new version...")
-            ctx = click.get_current_context()
-            ctx.invoke(build, config=config, pdf=True, html=True, verbose=verbose)
+            click.echo(f"  Config version before build: {build_config.project_version}")
 
-            # Collect artifacts
-            pdf_path = build_config.output_dir / f"{build_config.output_name}.pdf"
-            html_path = build_config.output_dir / f"{build_config.output_name}.html"
+            # Instead of using ctx.invoke, call build directly to ensure it runs
+            try:
+                # Initialize processors with reloaded config
+                md_processor = MarkdownProcessor(build_config)
+                pdf_generator = PDFGenerator(build_config)
 
-            if pdf_path.exists():
-                artifacts.append(pdf_path)
-            if html_path.exists():
-                artifacts.append(html_path)
+                # Discover files
+                files = md_processor.discover_files()
+                click.echo(f"  Found {len(files)} markdown files")
+
+                # Build document
+                markdown_content, html_content = md_processor.build_complete_document()
+                click.echo(f"  Generated {len(html_content)} bytes of HTML")
+
+                # Generate outputs
+                pdf_path, html_path = pdf_generator.get_output_paths()
+
+                click.echo(f"  Generating PDF: {pdf_path}")
+                pdf_generator.generate_pdf(html_content, pdf_path)
+                click.echo(f"  ✓ PDF created: {pdf_path}")
+
+                click.echo(f"  Generating HTML: {html_path}")
+                pdf_generator.generate_html(html_content, html_path)
+                click.echo(f"  ✓ HTML created: {html_path}")
+
+                # Collect artifacts
+                if pdf_path.exists():
+                    artifacts.append(pdf_path)
+                if html_path.exists():
+                    artifacts.append(html_path)
+
+            except Exception as e:
+                click.echo(f"  ✗ Build failed: {e}", err=True)
+                raise
 
         # Generate changelog and release notes
         click.echo("Generating release notes...")
