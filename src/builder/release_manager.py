@@ -298,8 +298,11 @@ Generated on {datetime.now().strftime("%Y-%m-%d")}
         """
         Update version number in README.md.
 
+        Replaces any existing version number with the canonical version
+        from the build configuration/git tags.
+
         Args:
-            version: New version number
+            version: Canonical version number to set
 
         Returns:
             True if updated, False if README not found or update failed
@@ -313,9 +316,11 @@ Generated on {datetime.now().strftime("%Y-%m-%d")}
             with open(readme_path, 'r', encoding='utf-8') as f:
                 content = f.read()
 
-            # Update version in the header (looking for **Version:** X.Y.Z pattern)
+            # Update version in the header
+            # Matches **Version:** followed by any version-like string
+            # (could be X.Y.Z, X.Y, or even placeholder text)
             updated_content = re.sub(
-                r'\*\*Version:\*\* \d+\.\d+\.\d+',
+                r'\*\*Version:\*\* [^\n]+',
                 f'**Version:** {version}',
                 content
             )
