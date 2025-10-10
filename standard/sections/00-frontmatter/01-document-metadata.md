@@ -1,6 +1,6 @@
 ---
 title: "Digital Commissioning of Building Automation Systems (BAS)"
-version: "0.3.10"
+version: "0.3.11"
 date: "October 9, 2025"
 status: "Draft Specification"
 license: "CC BY-SA 4.0"
@@ -10,7 +10,7 @@ authors:
 
 # Digital Commissioning of Building Automation Systems (BAS)
 
-**Version:** 0.3.10
+**Version:** 0.3.11
 **Date:** October 9, 2025
 **Status:** Draft Specification
 
