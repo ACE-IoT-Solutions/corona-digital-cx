@@ -213,7 +213,14 @@ def release(config, bump, version, message, push, do_build, draft, prerelease, v
 
         # Generate changelog and release notes
         click.echo("Generating release notes...")
-        changelog = release_mgr.generate_changelog()
+        # Get previous tag for changelog (changes since last release)
+        tags = release_mgr.get_version_tags()
+        previous_tag = tags[0] if tags else None
+        if previous_tag:
+            click.echo(f"  Generating changelog since {previous_tag}")
+        else:
+            click.echo("  Generating changelog from all commits (no previous tags)")
+        changelog = release_mgr.generate_changelog(since_tag=previous_tag)
         notes = release_mgr.create_release_notes(new_version, changelog)
 
         if verbose:
