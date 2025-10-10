@@ -32,8 +32,8 @@ class MarkdownProcessor:
         Discover all markdown files in source directory.
 
         Files are sorted by:
-        1. Numeric prefix if present (e.g., 01-intro.md, 02-setup.md)
-        2. Alphabetically if no numeric prefix
+        1. Folder path with numeric prefixes (e.g., 01-intro/, 02-setup/)
+        2. File name with numeric prefixes within each folder
 
         Returns:
             List of markdown file paths in order
@@ -49,14 +49,27 @@ class MarkdownProcessor:
         if not md_files:
             raise ValueError(f"No markdown files found in: {source_dir}")
 
-        # Sort by numeric prefix if present, then alphabetically
-        def sort_key(path: Path) -> Tuple[int, str]:
-            filename = path.name
-            # Try to extract leading number
-            match = re.match(r"^(\d+)", filename)
-            if match:
-                return (int(match.group(1)), filename)
-            return (999999, filename)  # Files without numbers sort last
+        # Sort by full path hierarchy, extracting numeric prefixes at each level
+        def sort_key(path: Path) -> Tuple:
+            # Get relative path from source directory
+            rel_path = path.relative_to(source_dir)
+
+            # Split into parts (folders and filename)
+            parts = list(rel_path.parts)
+
+            # Create sort key for each part (folder or file)
+            sort_parts = []
+            for part in parts:
+                # Try to extract leading number
+                match = re.match(r"^(\d+)", part)
+                if match:
+                    # (numeric_value, original_string)
+                    sort_parts.append((int(match.group(1)), part))
+                else:
+                    # Files/folders without numbers sort last
+                    sort_parts.append((999999, part))
+
+            return tuple(sort_parts)
 
         sorted_files = sorted(md_files, key=sort_key)
 
