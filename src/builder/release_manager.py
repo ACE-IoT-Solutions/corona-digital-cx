@@ -294,6 +294,93 @@ Generated on {datetime.now().strftime("%Y-%m-%d")}
 
         return None
 
+    def update_config_version(self, version: str) -> bool:
+        """
+        Update version number in config/build.yaml.
+
+        This is the SOURCE OF TRUTH for version numbers.
+
+        Args:
+            version: Version number to set
+
+        Returns:
+            True if updated, False if config not found or update failed
+        """
+        config_path = Path(self.repo.working_dir) / "config" / "build.yaml"
+
+        if not config_path.exists():
+            return False
+
+        try:
+            with open(config_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+
+            # Update version in project section
+            # Matches: version: "X.Y.Z"
+            updated_content = re.sub(
+                r'version:\s*"[^"]+"',
+                f'version: "{version}"',
+                content
+            )
+
+            # Only write if something changed
+            if updated_content != content:
+                with open(config_path, 'w', encoding='utf-8') as f:
+                    f.write(updated_content)
+                return True
+
+        except Exception:
+            pass
+
+        return False
+
+    def update_frontmatter_version(self, version: str) -> bool:
+        """
+        Update version number in frontmatter document.
+
+        Args:
+            version: Version number to set
+
+        Returns:
+            True if updated, False if frontmatter not found or update failed
+        """
+        frontmatter_path = Path(self.repo.working_dir) / "standard" / "sections" / "00-frontmatter" / "01-document-metadata.md"
+
+        if not frontmatter_path.exists():
+            return False
+
+        try:
+            with open(frontmatter_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+
+            # Update both YAML version and markdown version
+            updated_content = content
+
+            # Update YAML frontmatter: version: "X.Y.Z"
+            updated_content = re.sub(
+                r'version:\s*"[^"]+"',
+                f'version: "{version}"',
+                updated_content
+            )
+
+            # Update markdown version: **Version:** X.Y.Z
+            updated_content = re.sub(
+                r'\*\*Version:\*\* [^\n]+',
+                f'**Version:** {version}',
+                updated_content
+            )
+
+            # Only write if something changed
+            if updated_content != content:
+                with open(frontmatter_path, 'w', encoding='utf-8') as f:
+                    f.write(updated_content)
+                return True
+
+        except Exception:
+            pass
+
+        return False
+
     def update_readme_version(self, version: str) -> bool:
         """
         Update version number in README.md.

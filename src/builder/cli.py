@@ -135,10 +135,40 @@ def release(config, bump, version, message, push, do_build, draft, prerelease, v
 
         click.echo(f"Creating release: {new_version}")
 
-        # Build documentation
+        # Update all version files BEFORE building
+        click.echo("Updating version numbers...")
+        updated_files = []
+
+        # Update config/build.yaml (SOURCE OF TRUTH)
+        if release_mgr.update_config_version(new_version):
+            click.echo(f"  ✓ config/build.yaml updated to version {new_version}")
+            updated_files.append(Path("config/build.yaml"))
+        else:
+            click.echo("  ⚠ config/build.yaml not updated (file not found or no changes)")
+
+        # Update README.md
+        if release_mgr.update_readme_version(new_version):
+            click.echo(f"  ✓ README.md updated to version {new_version}")
+            updated_files.append(Path("README.md"))
+        else:
+            click.echo("  ⚠ README.md not updated (file not found or no changes)")
+
+        # Update frontmatter
+        if release_mgr.update_frontmatter_version(new_version):
+            click.echo(f"  ✓ Frontmatter updated to version {new_version}")
+            updated_files.append(Path("standard/sections/00-frontmatter/01-document-metadata.md"))
+        else:
+            click.echo("  ⚠ Frontmatter not updated (file not found or no changes)")
+
+        # Commit version updates
+        if updated_files:
+            release_mgr.commit_files(updated_files, f"chore: bump version to {new_version}")
+            click.echo(f"  ✓ Version updates committed")
+
+        # Build documentation (now with correct version)
         artifacts = []
         if do_build:
-            click.echo("Building documentation...")
+            click.echo("Building documentation with new version...")
             ctx = click.get_current_context()
             ctx.invoke(build, config=config, pdf=True, html=True, verbose=verbose)
 
@@ -161,17 +191,6 @@ def release(config, bump, version, message, push, do_build, draft, prerelease, v
             click.echo("-" * 40)
             click.echo(notes)
             click.echo("-" * 40)
-
-        # Update README version
-        click.echo("Updating README version...")
-        if release_mgr.update_readme_version(new_version):
-            click.echo(f"  ✓ README.md updated to version {new_version}")
-            # Commit the README update
-            readme_path = Path("README.md")
-            release_mgr.commit_files([readme_path], f"chore: bump version to {new_version}")
-            click.echo(f"  ✓ Version update committed")
-        else:
-            click.echo("  ⚠ README.md not updated (file not found or no changes)")
 
         # Create tag
         click.echo(f"Creating git tag...")
