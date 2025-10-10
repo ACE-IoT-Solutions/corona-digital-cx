@@ -294,6 +294,43 @@ Generated on {datetime.now().strftime("%Y-%m-%d")}
 
         return None
 
+    def update_readme_version(self, version: str) -> bool:
+        """
+        Update version number in README.md.
+
+        Args:
+            version: New version number
+
+        Returns:
+            True if updated, False if README not found or update failed
+        """
+        readme_path = Path(self.repo.working_dir) / "README.md"
+
+        if not readme_path.exists():
+            return False
+
+        try:
+            with open(readme_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+
+            # Update version in the header (looking for **Version:** X.Y.Z pattern)
+            updated_content = re.sub(
+                r'\*\*Version:\*\* \d+\.\d+\.\d+',
+                f'**Version:** {version}',
+                content
+            )
+
+            # Only write if something changed
+            if updated_content != content:
+                with open(readme_path, 'w', encoding='utf-8') as f:
+                    f.write(updated_content)
+                return True
+
+        except Exception:
+            pass
+
+        return False
+
     def create_github_release(
         self,
         version: str,

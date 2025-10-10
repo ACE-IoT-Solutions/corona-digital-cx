@@ -162,6 +162,17 @@ def release(config, bump, version, message, push, do_build, draft, prerelease, v
             click.echo(notes)
             click.echo("-" * 40)
 
+        # Update README version
+        click.echo("Updating README version...")
+        if release_mgr.update_readme_version(new_version):
+            click.echo(f"  ✓ README.md updated to version {new_version}")
+            # Commit the README update
+            readme_path = Path("README.md")
+            release_mgr.commit_files([readme_path], f"chore: bump version to {new_version}")
+            click.echo(f"  ✓ Version update committed")
+        else:
+            click.echo("  ⚠ README.md not updated (file not found or no changes)")
+
         # Create tag
         click.echo(f"Creating git tag...")
         tag_message = message or f"Release {new_version}"
