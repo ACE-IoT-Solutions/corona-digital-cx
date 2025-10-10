@@ -62,6 +62,25 @@ class MarkdownProcessor:
 
         return sorted_files
 
+    def remove_license_footer(self, content: str) -> str:
+        """
+        Remove CC license footer from individual file content.
+
+        Args:
+            content: Markdown content
+
+        Returns:
+            Content with license footer removed
+        """
+        # Pattern to match the standard CC license footer
+        # Matches the horizontal rule and license notice at the end of files
+        pattern = r'\n---\n\n\*This document is part of.*?licensed under.*?\*\s*$'
+
+        # Remove the footer
+        cleaned = re.sub(pattern, '', content, flags=re.DOTALL | re.MULTILINE)
+
+        return cleaned.rstrip()
+
     def combine_files(self, files: List[Path]) -> str:
         """
         Combine multiple markdown files into single document.
@@ -77,6 +96,9 @@ class MarkdownProcessor:
         for file_path in files:
             with open(file_path, encoding="utf-8") as f:
                 content = f.read()
+
+            # Remove CC license footer from individual files
+            content = self.remove_license_footer(content)
 
             # Add file separator comment
             combined.append(f"<!-- Source: {file_path.name} -->")
@@ -154,6 +176,34 @@ license: {self.config.project_license}
         html = self._md.convert(markdown_content)
         return html
 
+    def add_license_footer(self, content: str) -> str:
+        """
+        Add final CC license footer to complete document.
+
+        Args:
+            content: Markdown content
+
+        Returns:
+            Content with license footer appended
+        """
+        footer = """
+
+---
+
+## License
+
+*This document is part of the Digital Commissioning of Building Automation Systems Standard, licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).*
+
+**You are free to:**
+- **Share** — copy and redistribute the material in any medium or format
+- **Adapt** — remix, transform, and build upon the material for any purpose, even commercially
+
+**Under the following terms:**
+- **Attribution** — You must give appropriate credit, provide a link to the license, and indicate if changes were made
+- **ShareAlike** — If you remix, transform, or build upon the material, you must distribute your contributions under the same license
+"""
+        return content + footer
+
     def build_complete_document(self) -> Tuple[str, str]:
         """
         Build complete document from all source files.
@@ -170,6 +220,9 @@ license: {self.config.project_license}
 
         # Add metadata
         markdown_content = self.add_metadata_header(markdown_content)
+
+        # Add final license footer
+        markdown_content = self.add_license_footer(markdown_content)
 
         # Convert to HTML
         html_content = self.convert_to_html(markdown_content)
