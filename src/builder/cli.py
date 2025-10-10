@@ -165,6 +165,11 @@ def release(config, bump, version, message, push, do_build, draft, prerelease, v
             release_mgr.commit_files(updated_files, f"chore: bump version to {new_version}")
             click.echo(f"  ✓ Version updates committed")
 
+        # Reload config after version updates
+        click.echo("Reloading configuration with new version...")
+        build_config = BuildConfig(config)
+        click.echo(f"  ✓ Config reloaded (version: {build_config.project_version})")
+
         # Build documentation (now with correct version)
         artifacts = []
         if do_build:
@@ -200,6 +205,11 @@ def release(config, bump, version, message, push, do_build, draft, prerelease, v
 
         # Push to remote and create GitHub release
         if push:
+            # Push branch first so version updates are on remote
+            click.echo("Pushing branch to remote...")
+            release_mgr.push_branch()
+            click.echo("  ✓ Branch pushed")
+
             click.echo("Pushing tags to remote...")
             release_mgr.push_tags()
             click.echo("  ✓ Tags pushed")

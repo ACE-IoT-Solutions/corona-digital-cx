@@ -236,6 +236,17 @@ Generated on {datetime.now().strftime("%Y-%m-%d")}
         # Commit
         self.repo.index.commit(message)
 
+    def push_branch(self, remote: str = "origin") -> None:
+        """
+        Push current branch to remote.
+
+        Args:
+            remote: Remote name (default: origin)
+        """
+        current_branch = self.repo.active_branch
+        remote_obj = self.repo.remote(remote)
+        remote_obj.push(current_branch)
+
     def push_tags(self, remote: str = "origin") -> None:
         """
         Push tags to remote.
