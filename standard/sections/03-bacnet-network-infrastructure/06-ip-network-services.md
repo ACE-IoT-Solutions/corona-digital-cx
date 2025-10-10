@@ -4,7 +4,7 @@
 
 For networks spanning multiple IP subnets, a clear BBMD strategy is required. One primary and at least one backup BBMD shall be configured. The contractor must provide the Broadcast Distribution Table (BDT) for each BBMD.
 
-The contractor shall also provide a BACnet data flow diagram illustrating the logical path of communications through routers and BBMDs during both normal operation and in documented failover scenarios.
+The contractor shall also provide a BACnet data flow diagram illustrating the logical path of communications through routers and BBMDs during both normal operation and in failover scenarios.
 
 ## Foreign Device Registration
 
@@ -13,6 +13,9 @@ The use of Foreign Device Registration shall be minimized and approved by the Ow
 ## UDP Port
 
 All BACnet/IP communications shall use the official IANA-registered UDP port 47808 (0xBAC0). Any deviation must be explicitly approved in writing.
+
+
+
 
 ---
 

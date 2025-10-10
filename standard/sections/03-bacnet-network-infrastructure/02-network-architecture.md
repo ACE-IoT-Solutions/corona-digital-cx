@@ -10,6 +10,11 @@ The contractor shall submit a complete network architecture diagram showing all 
 
 **Placeholder for Network Diagram Image/Link**
 
+#### Performance and Reliability
+- **Throughput Testing**: Measure data throughput between network segments
+- **Latency Testing**: Verify acceptable response times for cross-network communication
+- **Failover Testing**: If redundant routers exist, verify automatic failover functionality
+- **Traffic Filtering**: Confirm appropriate broadcast filtering between network segments
 ---
 
 *This document is part of the Digital Commissioning of Building Automation Systems Standard, licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).*
