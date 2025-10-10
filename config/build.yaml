@@ -5,7 +5,7 @@ project:
   name: "Corona Digital CX Standard"
   title: "Digital Commissioning of Building Automation Systems (BAS)"
   author: "Corona Digital CX Working Group"
-  version: "0.3.8"
+  version: "0.3.9"
   date: "October 9, 2025"
   status: "Draft Specification"
   license: "CC BY-SA 4.0"
