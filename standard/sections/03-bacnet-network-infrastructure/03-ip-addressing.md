@@ -1,24 +1,62 @@
-# 3.2 IP Addressing
+# 3.2 IP Addressing Validation
 
-All BACnet/IP devices, including supervisory controllers, routers, and servers, shall be assigned a static IP address or utilize DHCP with a MAC-based reservation. Randomly assigned or dynamic DHCP addresses are not permitted for devices.
+## 3.2.1 Validation Requirements
 
-All BAS network devices shall reside on a dedicated and isolated LAN or VLAN, coordinated with the Owner's IT department.
+### IP Address Assignment Validation
+The IP addressing implementation must be validated against the project-specific addressing scheme and network design requirements.
 
-Subnets in use will be clearly documented, with all subnets identified with their CIDR notation, and a gateway address.
-Each subnet shall have the greater of 10 available client IP addresses or 25% of the total assignable range of the subnet.
-Subnets smaller than 0.0.0.0/28 must have written exceptions to be acceptable.
-### Examples:
-- **Subnet A** is 10.100.10.0/24 with Gateway 10.100.10.254, giving us 253 usable addresses. This subnet shall not have more than 189 devices at commissioning.
-- **Subnet B** is 10.100.11.0/26 with Gateway 10.100.11.62, giving us 61 usable addresses. This subnet shall not have more than 46 devices at commissioning.
-- **Subnet C** is 10.100.11.64/28 with Gateway 10.100.11.78, giving us 13 usable addresses. This subnet shall not have more than 3 devices at commissioning.
+**Required Deliverable**: Complete IP Address Schedule documenting all BAS devices with their assigned IP addresses, subnet assignments, and addressing method (static or DHCP reservation).
 
-The Controls Contractor shall complete and submit a full IP Address Schedule for all devices as a commissioning deliverable.
-### Verification
-#### Network Configuration
-- **IP Address Assignment**: Verify router has correct static IP address or DHCP reservation
-- **Subnet Configuration**: Confirm router is on correct network segment with proper subnet mask
-- **Default Gateway**: Verify correct default gateway configuration for routing between networks
-- **VLAN Configuration**: If applicable, confirm proper VLAN tagging and membership
+### Subnet Configuration Validation
+Network subnet implementation must be verified for:
+- Compliance with documented subnet design
+- Adequate address space for current and planned devices
+- Proper subnet isolation and VLAN configuration
+- Coordination with facility IT infrastructure
+
+## 3.2.2 Validation Criteria Examples
+
+The following examples illustrate validation criteria that would be applied based on project-specific requirements:
+
+### Address Assignment Validation
+- **Static IP Verification**: Confirm devices configured with static IP addresses match the IP Address Schedule
+- **DHCP Reservation Verification**: Verify MAC-address-based DHCP reservations are properly configured and functional
+- **Dynamic Address Prohibition**: Confirm no devices are using randomly assigned or dynamic DHCP addresses
+
+### Subnet Capacity Validation  
+Examples of subnet capacity validation against project requirements:
+- **Subnet A Example**: 10.100.10.0/24 (253 usable addresses) - verify device count does not exceed capacity threshold per project requirements
+- **Subnet B Example**: 10.100.11.0/26 (61 usable addresses) - validate current device count against design capacity
+- **Subnet C Example**: 10.100.11.64/28 (13 usable addresses) - confirm subnet size meets minimum requirements or has documented exception
+
+## 3.2.3 Verification Procedures
+
+### IP Address Schedule Verification Method
+1. **Documentation Completeness Check**
+   - **Objective**: Verify IP Address Schedule includes all BAS devices
+   - **Method**: Cross-reference schedule against network discovery results
+   - **Acceptance Criteria**: 100% of discovered devices are documented in schedule
+
+2. **Address Assignment Verification**
+   - **Objective**: Confirm devices are configured per the documented addressing scheme
+   - **Method**: Network scanning to verify actual IP configurations match schedule
+   - **Acceptance Criteria**: 100% correlation between documented and actual IP assignments
+
+### Network Configuration Testing Method
+1. **Subnet Verification**
+   - **Objective**: Validate subnet configuration and device placement
+   - **Method**: Network topology discovery and subnet boundary testing
+   - **Acceptance Criteria**: All devices are on correct subnets with proper network masks and gateways
+
+2. **VLAN Configuration Testing** (If Applicable)
+   - **Objective**: Verify VLAN tagging and membership
+   - **Method**: VLAN discovery and traffic flow analysis
+   - **Acceptance Criteria**: All BAS devices are on designated VLANs with proper isolation from other networks
+
+3. **Connectivity Validation**
+   - **Objective**: Confirm all devices can communicate as required by system design
+   - **Method**: Automated ping testing and BACnet communication verification
+   - **Acceptance Criteria**: 100% of devices respond to network communication tests
 
 ---
 

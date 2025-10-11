@@ -6,21 +6,26 @@
 
 ## 📋 About This Standard
 
-This open standard specifies the requirements for the digital representation and network infrastructure of Building Automation Systems (BAS) as part of the digital commissioning (DCx) process. The primary goal is to ensure that all data points, equipment, system relationships, and network configurations are structured, consistent, and machine-readable from project inception.
+This open standard defines the **validation and verification requirements** for digital commissioning (DCx) of Building Automation Systems (BAS). It specifies what aspects of BAS digital representation and network infrastructure must be tested, verified, and validated to ensure machine-readable, interoperable systems that enable advanced applications such as automated fault detection and diagnostics (AFDD), performance analytics, and seamless integration with other building systems.
 
 ### Key Objectives
 
-- **Standardized Network Infrastructure**: Define requirements for stable, scalable, and interoperable BACnet networks
-- **Machine-Readable Metadata**: Enable automated fault detection and diagnostics (AFDD), performance analytics, and seamless integration
+- **Validation Framework**: Define comprehensive validation and verification requirements for BAS digital commissioning
+- **Implementation Independence**: Provide validation methods that work regardless of specific system design standards, naming conventions, or configuration approaches
 - **Progressive Validation**: Establish three levels of metadata validation from naming conventions to semantic models
+- **Dual-Purpose Structure**: Serve both traditional commissioning needs (what to validate) and standardized verification procedures (how to validate)
 - **Industry Collaboration**: Create a community-driven standard that evolves with industry best practices
 
 ### Scope
 
-This specification applies to all control systems and devices associated with mechanical (HVAC) and plumbing systems, covering:
+This standard applies to the validation and verification of all control systems and devices associated with mechanical (HVAC) and plumbing systems, covering:
 
-- **BACnet Network Infrastructure** (IP addressing, device numbering, network services, physical layer)
-- **Metadata Validation Levels** (naming conventions, tagging/labeling, semantic models)
+- **BACnet Network Infrastructure Validation**: Network architecture, IP addressing, device configuration, communication protocols
+- **Metadata Validation Levels**: Three progressive levels of digital representation validation (naming conventions, tagging/labeling, semantic models)
+
+### Relationship to System Design Standards
+
+This standard does **not** prescribe how BAS systems should be designed or configured. Instead, it defines validation and verification methods that can be applied regardless of the specific design standard, naming convention, or configuration approach used for a project. External design standards, project specifications, and configuration requirements are referenced as validation criteria, enabling this standard to be applied across different project types and design methodologies.
 
 ## 📖 Reading the Standard
 
