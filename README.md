@@ -1,6 +1,6 @@
 # Digital Commissioning of Building Automation Systems (BAS)
 
-**Version:** 0.3.11
+**Version:** 0.3.12
 **Status:** Draft Specification
 **License:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
