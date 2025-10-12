@@ -125,6 +125,45 @@ li {
     margin: 6pt 0;
 }
 
+/* Task lists / Checkboxes */
+.task-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.task-list-item {
+    position: relative;
+    padding-left: 30pt;
+    margin: 6pt 0;
+}
+
+.task-list-item input[type="checkbox"] {
+    position: absolute;
+    left: 0;
+    top: 2pt;
+    width: 14pt;
+    height: 14pt;
+    margin: 0;
+}
+
+/* Render checkboxes as proper boxes in PDF */
+.task-list-item::before {
+    content: "☐";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 14pt;
+    line-height: 1.6;
+}
+
+.task-list-item.task-list-item-checkbox::before {
+    content: "☐";
+}
+
+input[type="checkbox"].task-list-item-checkbox {
+    display: none;
+}
+
 /* Tables */
 table {
     width: 100%;
