@@ -75,9 +75,6 @@ markdown:
     toc:
       permalink: true
       toc_depth: 3
-    pymdownx.tasklist:
-      custom_checkbox: true
-      clickable_checkbox: false
 
 # Release automation
 release:

@@ -39,8 +39,14 @@ h1 {
     color: #1a1a1a;
     margin-top: 30pt;
     margin-bottom: 15pt;
+    page-break-before: always;
     page-break-after: avoid;
     string-set: chapter content();
+}
+
+/* Don't force page break for the very first h1 (title/cover) */
+h1:first-of-type {
+    page-break-before: auto;
 }
 
 h2 {
@@ -125,42 +131,29 @@ li {
     margin: 6pt 0;
 }
 
-/* Task lists / Checkboxes */
-.task-list {
+/* Task lists / Checkboxes - render as styled list */
+ul.task-list {
     list-style: none;
+    padding-left: 24pt;
+}
+
+li.task-list-item {
+    position: relative;
+    margin: 6pt 0;
     padding-left: 0;
 }
 
-.task-list-item {
-    position: relative;
-    padding-left: 30pt;
-    margin: 6pt 0;
-}
-
-.task-list-item input[type="checkbox"] {
+/* Replace checkbox input with styled checkbox symbol */
+li.task-list-item::before {
+    content: "☐  ";
     position: absolute;
-    left: 0;
-    top: 2pt;
-    width: 14pt;
-    height: 14pt;
-    margin: 0;
-}
-
-/* Render checkboxes as proper boxes in PDF */
-.task-list-item::before {
-    content: "☐";
-    position: absolute;
-    left: 0;
-    top: 0;
-    font-size: 14pt;
+    left: -24pt;
+    font-size: 12pt;
     line-height: 1.6;
 }
 
-.task-list-item.task-list-item-checkbox::before {
-    content: "☐";
-}
-
-input[type="checkbox"].task-list-item-checkbox {
+/* Hide the actual checkbox input - it doesn't render well in PDF */
+li.task-list-item input[type="checkbox"] {
     display: none;
 }
 
