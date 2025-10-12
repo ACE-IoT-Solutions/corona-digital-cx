@@ -1,0 +1,205 @@
+name: Build and Release Documentation
+
+on:
+  push:
+    branches:
+      - releases
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libpango-1.0-0 \
+            libpangoft2-1.0-0 \
+            libpangocairo-1.0-0 \
+            libgdk-pixbuf2.0-0 \
+            libffi-dev \
+            shared-mime-info
+
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+      - name: Install Python dependencies
+        run: |
+          uv sync
+
+      - name: Create release with version bump
+        id: create_release
+        run: |
+          # Run the release command with automatic patch bump
+          # This will: update versions, commit, create tag, build docs
+          uv run mdoc-release --bump patch --build --verbose
+
+          # Get the version that was created
+          VERSION=$(uv run python -c "import yaml; print(yaml.safe_load(open('config/build.yaml'))['project']['version'])")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+
+          # Get the tag message
+          TAG_MESSAGE=$(git tag -l --format='%(contents)' "v$VERSION")
+          echo "tag_message<<EOF" >> $GITHUB_OUTPUT
+          echo "$TAG_MESSAGE" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Push version updates and tags
+        run: |
+          git push origin releases
+          git push --tags
+
+      - name: Verify build outputs
+        run: |
+          ls -lh dist/
+          if [ ! -f "dist/digital-commissioning-bas-standard.pdf" ]; then
+            echo "Error: PDF not generated"
+            exit 1
+          fi
+          if [ ! -f "dist/digital-commissioning-bas-standard.html" ]; then
+            echo "Error: HTML not generated"
+            exit 1
+          fi
+
+      - name: Generate release notes
+        id: release_notes
+        run: |
+          # Get the previous tag
+          PREV_TAG=$(git tag --sort=-v:refname | grep -v "^${{ steps.create_release.outputs.tag }}$" | head -n1)
+
+          if [ -z "$PREV_TAG" ]; then
+            echo "No previous tag found, using all commits"
+            CHANGELOG=$(git log --pretty=format:"- %s (%h)" --no-merges)
+          else
+            echo "Generating changelog since $PREV_TAG"
+            CHANGELOG=$(git log ${PREV_TAG}..${{ steps.create_release.outputs.tag }} --pretty=format:"- %s (%h)" --no-merges)
+          fi
+
+          # Create release notes
+          cat > release_notes.md << EOF
+          ## Digital Commissioning BAS Standard - Version ${{ steps.create_release.outputs.version }}
+
+          ### Downloads
+          - [PDF Documentation](../../releases/download/${{ steps.create_release.outputs.tag }}/digital-commissioning-bas-standard.pdf)
+          - [HTML Documentation](../../releases/download/${{ steps.create_release.outputs.tag }}/digital-commissioning-bas-standard.html)
+
+          ### Changes
+          ${CHANGELOG}
+
+          ---
+          *Built automatically by GitHub Actions*
+          EOF
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.create_release.outputs.tag }}
+          name: Release ${{ steps.create_release.outputs.version }}
+          body_path: release_notes.md
+          files: |
+            dist/digital-commissioning-bas-standard.pdf
+            dist/digital-commissioning-bas-standard.html
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation-build-${{ steps.create_release.outputs.version }}
+          path: |
+            dist/digital-commissioning-bas-standard.pdf
+            dist/digital-commissioning-bas-standard.html
+          retention-days: 90
+
+  deploy-pages:
+    needs: build-and-release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libpango-1.0-0 \
+            libpangoft2-1.0-0 \
+            libpangocairo-1.0-0 \
+            libgdk-pixbuf2.0-0 \
+            libffi-dev \
+            shared-mime-info
+
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+      - name: Install Python dependencies
+        run: |
+          uv sync
+
+      - name: Build HTML documentation
+        run: |
+          uv run mdoc-build --html --verbose
+
+      - name: Prepare GitHub Pages deployment
+        run: |
+          mkdir -p _site
+          cp dist/digital-commissioning-bas-standard.html _site/index.html
+
+          # Copy any assets if they exist
+          if [ -d "standard/assets" ]; then
+            mkdir -p _site/assets
+            cp -r standard/assets/* _site/assets/ || true
+          fi
+
+          # Create a simple redirect page at root
+          cat > _site/README.md << 'EOF'
+          # Digital Commissioning of Building Automation Systems (BAS)
+
+          [View the Standard Documentation](./index.html)
+
+          This is an automatically generated GitHub Pages site hosting the latest version of the standard.
+          EOF
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
