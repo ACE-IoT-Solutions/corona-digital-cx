@@ -12,13 +12,18 @@ This standard is structured as both:
 
 This standard applies to the validation and verification of:
 - BACnet network infrastructure configurations
-- Digital metadata structure and completeness 
+- Digital metadata structure and completeness
 - System interoperability and data accessibility
-- All control systems and devices associated with mechanical (HVAC) and plumbing systems
+- Cybersecurity controls for operational technology networks
+- Software licensing and vendor lock-in prevention
+- All control systems and devices associated with mechanical (HVAC) and plumbing systems, and integrated building systems that exchange data with the BAS
 
-The validation process covers two primary areas:
-1. **BACnet Network Infrastructure Validation**: Verification of network architecture, addressing, device configuration, and communication protocols
-2. **Metadata Validation**: Three progressive levels of digital representation validation, from naming conventions to semantic modeling
+The validation process covers five primary areas:
+1. **General Requirements**: Project roles, responsibilities, coordination, and cybersecurity validation
+2. **BACnet Network Infrastructure Validation**: Verification of network architecture, addressing, device configuration, communication protocols, and software interoperability
+3. **Integrated Systems Validation**: Validation of lighting controls, utility metering, and other systems that interface with the BAS
+4. **Metadata Validation**: Three progressive levels of digital representation validation, from naming conventions to semantic modeling
+5. **Data Accessibility**: Performance requirements for data access, visualization, and system responsiveness
 
 ## 1.3 Relationship to System Design Standards
 
