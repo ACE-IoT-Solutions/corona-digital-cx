@@ -5,9 +5,10 @@ build-backend = "hatchling.build"
 [project]
 name = "corona-digital-cx"
 version = "0.1.0"
-description = "Markdown documentation build system with PDF compilation and automated releases"
+description = "Open standard source and build tooling for digital commissioning of building automation systems"
 readme = "README.md"
 requires-python = ">=3.13"
+license = "CC-BY-SA-4.0"
 dependencies = [
     "markdown>=3.7",
     "pymdown-extensions>=10.12",
@@ -19,6 +20,11 @@ dependencies = [
     "pillow>=11.0.0",
     "click>=8.1.7",
 ]
+
+[project.urls]
+Homepage = "https://github.com/ACE-IoT-Solutions/corona-digital-cx"
+Repository = "https://github.com/ACE-IoT-Solutions/corona-digital-cx"
+Issues = "https://github.com/ACE-IoT-Solutions/corona-digital-cx/issues"
 
 [tool.uv]
 package = true

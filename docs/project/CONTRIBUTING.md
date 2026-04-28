@@ -1,89 +1,77 @@
-# Contributing to the Digital Commissioning Standard
+# Contributing To The Digital Commissioning Standard
 
-Thank you for your interest in contributing to the Digital Commissioning of Building Automation Systems Standard!
+This page expands on the repository-level [`CONTRIBUTING.md`](../../CONTRIBUTING.md) with authoring guidance for contributors working inside the standard source.
 
 ## Quick Links
 
-- [How to Contribute](../README.md#contributing) - Main contribution guide
-- [Style Guide](../README.md#style-guide) - Writing and formatting guidelines
-- [Templates](../../templates/) - Templates for new sections and subsections
+- [Repository entry point](../../README.md)
+- [Contributor quickstart](../QUICKSTART.md)
+- [Templates](../../templates/)
+
+## What To Edit
+
+- Use `standard/sections/` for normative changes to the standard
+- Use `templates/` when creating new sections or subsections
+- Use `docs/` for contributor-facing process documentation
 
 ## Using Templates
 
-We provide templates to help you create well-structured content that follows the standard format.
+Templates are provided to keep new material structurally consistent.
 
-### Adding a New Subsection
+### Adding A New Subsection
 
-1. **Navigate to the appropriate section** in `standard/sections/`
+1. Navigate to the appropriate section in `standard/sections/`
+2. Copy the subsection template:
 
-2. **Copy the subsection template**:
-   ```bash
-   cp templates/subsection-templates/01-subsection-requirements.md \
-      standard/sections/[XX-section-name]/[YY-new-subsection].md
-   ```
+```bash
+cp templates/subsection-templates/01-subsection-requirements.md \
+  standard/sections/[XX-section-name]/[YY-new-subsection].md
+```
 
-3. **Fill in the template** with your content:
-   - Section number and title
-   - Overview of the subsection
-   - Specific requirements (using "shall", "should", "may")
-   - Concrete examples with scenarios
-   - Verification steps and acceptance criteria
-
-4. **Test your contribution**:
-   ```bash
-   uv run mdoc-build --pdf --html
-   ```
-
-5. **Submit a pull request** with your changes
+3. Replace the placeholder content with:
+   - the subsection title and scope
+   - normative requirements
+   - examples where they reduce ambiguity
+   - verification steps or acceptance criteria
+4. Validate and build the repo before opening a pull request
 
 ### Template Components
 
-Each subsection should include:
+Each subsection should generally include:
 
-- **Overview** - Brief introduction to scope and purpose
-- **Requirements** - Mandatory specifications with precise language
-- **Examples** - Real-world scenarios demonstrating compliance
-- **Verification** - How to validate compliance with acceptance criteria
+- overview
+- requirements
+- examples
+- verification or acceptance criteria
 
-See the [Templates README](../../templates/README.md) for detailed guidance.
+See [`templates/README.md`](../../templates/README.md) for more detail.
+
+## Writing Conventions
+
+- Use clear technical language
+- Use `shall` for mandatory requirements
+- Use `should` for recommendations
+- Use `may` for optional provisions
+- Prefer short sections with one purpose
+- Add examples when a requirement could be interpreted multiple ways
 
 ## Commit Message Format
 
-We use [Conventional Commits](https://www.conventionalcommits.org/):
+Use [Conventional Commits](https://www.conventionalcommits.org/).
 
-```
-<type>(<scope>): <description>
+Examples:
 
-[optional body]
+- `feat(bacnet): add BACnet Secure Connect validation guidance`
+- `fix(validation): clarify sampling requirements for level 1`
+- `docs(contributing): tighten newcomer workflow`
 
-[optional footer]
-```
+## Review Expectations
 
-**Types:**
-- `feat:` - New content or enhancements
-- `fix:` - Corrections or clarifications
-- `docs:` - Documentation improvements
-- `refactor:` - Reorganization without content changes
-- `chore:` - Maintenance tasks
+- Explain the operational problem your change solves
+- Flag whether the change is normative or editorial
+- Expect review on clarity, interoperability impact, and verification implications
 
-**Examples:**
-```
-feat(bacnet): add section on BACnet Secure Connect requirements
-fix(validation): clarify sampling requirements for Level 1
-docs(readme): update installation instructions
-```
+## Questions
 
-## Review Process
-
-1. Submit your pull request
-2. Maintainers will review within 5 business days
-3. Address any feedback or requested changes
-4. Once approved, your contribution will be merged
-5. Your name will be added to the contributors list
-
-## Questions?
-
-- Open a [GitHub Issue](https://github.com/YOUR-ORG/corona-digital-cx/issues)
-- Start a [GitHub Discussion](https://github.com/YOUR-ORG/corona-digital-cx/discussions)
-
-Thank you for helping improve building automation standards!
+- Issues: https://github.com/ACE-IoT-Solutions/corona-digital-cx/issues
+- Discussions: https://github.com/ACE-IoT-Solutions/corona-digital-cx/discussions
