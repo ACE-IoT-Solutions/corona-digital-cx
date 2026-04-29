@@ -5,12 +5,14 @@
 This standard defines the **validation and verification requirements** for digital commissioning (DCx) of Building Automation Systems (BAS). It specifies what aspects of BAS digital representation and network infrastructure must be tested, verified, and validated to ensure machine-readable, interoperable systems that enable advanced applications such as automated fault detection and diagnostics (AFDD), performance analytics, and seamless integration with other building systems.
 
 This standard is structured as both:
+
 - **Commissioning Specification**: Defining what must be validated and the acceptance criteria
 - **Verification Procedures**: Providing standardized methods for conducting validation tests
 
 ## 1.2 Scope
 
 This standard applies to the validation and verification of:
+
 - BACnet network infrastructure configurations
 - Digital metadata structure and completeness
 - System interoperability and data accessibility
@@ -19,6 +21,7 @@ This standard applies to the validation and verification of:
 - All control systems and devices associated with mechanical (HVAC) and plumbing systems, and integrated building systems that exchange data with the BAS
 
 The validation process covers five primary areas:
+
 1. **General Requirements**: Project roles, responsibilities, coordination, and cybersecurity validation
 2. **BACnet Network Infrastructure Validation**: Verification of network architecture, addressing, device configuration, communication protocols, and software interoperability
 3. **Integrated Systems Validation**: Validation of lighting controls, utility metering, and other systems that interface with the BAS

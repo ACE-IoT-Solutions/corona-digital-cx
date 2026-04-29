@@ -18,6 +18,7 @@ Validates that system relationships and hierarchies are properly modeled and mac
 ## Validation Independence
 
 Each level of metadata validation is designed to work with any project-specific:
+
 - Naming convention or standard (e.g., project appendices, industry standards)
 - Tagging taxonomy or vocabulary 
 - Semantic modeling approach or ontology
@@ -28,6 +29,7 @@ The validation procedures verify conformance to the **specified** approach rathe
 ## Progressive Requirements
 
 Each level has distinct validation requirements:
+
 - **100% Coverage**: All elements at each level must pass syntax and format validation
 - **Sampling-Based Correctness**: Strategic sampling ensures semantic accuracy and proper implementation
 - **Cross-Level Consistency**: Higher levels must be consistent with validated lower levels

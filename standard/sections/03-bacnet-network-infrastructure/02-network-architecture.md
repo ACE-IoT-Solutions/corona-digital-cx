@@ -9,6 +9,7 @@ The network architecture implementation must be validated against the project-sp
 
 ### Network Topology Validation
 The implemented network topology must be verified against the approved design specifications, including:
+
 - Network segmentation approach (hierarchical vs. flat architectures)
 - Communication path verification between network segments
 - Router placement and connectivity validation

@@ -6,6 +6,7 @@ This standard employs a dual-component validation framework:
 
 ### Commissioning Specifications
 Define **what must be validated** including:
+
 - Required deliverables and documentation
 - Validation coverage requirements (e.g., 100% of devices, sampling percentages)
 - Acceptance criteria and pass/fail thresholds
@@ -13,6 +14,7 @@ Define **what must be validated** including:
 
 ### Verification Procedures  
 Define **how to conduct validation** including:
+
 - Standardized testing methodologies
 - Required tools and equipment
 - Step-by-step verification processes
@@ -21,6 +23,7 @@ Define **how to conduct validation** including:
 ## 2.3.2 Implementation Independence
 
 The validation requirements are designed to be implementation-independent, meaning they can be applied regardless of:
+
 - Specific system design standards used
 - Equipment manufacturers or models selected  
 - Project-specific naming conventions or configuration approaches
@@ -29,6 +32,7 @@ The validation requirements are designed to be implementation-independent, meani
 ## 2.3.3 Tool Requirements
 
 Validation will be performed using industry-standard diagnostic tools and automated verification scripts, including but not limited to:
+
 - Network analysis tools (e.g., Wireshark, network scanners)
 - BACnet diagnostic tools (e.g., YABE, BACnet browsers)
 - Automated validation scripts and databases queries
@@ -37,6 +41,7 @@ Validation will be performed using industry-standard diagnostic tools and automa
 ## 2.3.4 Access Requirements
 
 The system contractor must provide necessary access for validation activities:
+
 - Network access for diagnostic tools and automated scripts
 - System database access for metadata validation
 - Robust metadata available in non-proprietary interoperable formats

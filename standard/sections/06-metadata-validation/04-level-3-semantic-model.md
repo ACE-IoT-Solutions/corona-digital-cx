@@ -9,6 +9,7 @@ The semantic model implementation must be validated against the project-specific
 
 ### Relationship Completeness Validation
 All system relationships must be validated for:
+
 - Equipment-to-equipment connections and dependencies
 - Equipment-to-space service relationships
 - System hierarchy and containment relationships
@@ -17,6 +18,7 @@ All system relationships must be validated for:
 
 ### Model Integrity Validation
 The semantic model must demonstrate:
+
 - Syntactic validity according to the specified modeling language/schema
 - Semantic consistency with the designated ontology or vocabulary
 - Complete representation of all physical and logical system components
@@ -27,12 +29,14 @@ The semantic model must demonstrate:
 The following examples illustrate validation criteria that would be applied based on project-specific semantic modeling standards:
 
 ### Semantic Modeling Standard Examples
+
 - **Brick Schema**: Validation against Brick ontology classes and relationships (e.g., `isFedBy`, `isLocatedIn`, `serves`, `hasPoint`)
 - **Custom Ontology**: Validation against project-specific semantic model and relationship definitions
 - **Industry Standards**: Validation against IFC, BOT (Building Topology Ontology), or other specified semantic standards
 - **Hybrid Approaches**: Validation of models combining multiple ontologies or standards
 
 ### Relationship Validation Examples
+
 - **Service Relationships**: Equipment serving spaces through appropriate relationship chains
 - **Energy Pathways**: Complete energy flow chains from building services to end-use equipment
 - **Spatial Relationships**: Equipment located in appropriate spaces with proper containment hierarchies
@@ -40,6 +44,7 @@ The following examples illustrate validation criteria that would be applied base
 
 ### Query Capability Requirements Examples
 Based on project-specific analytical needs, the model must support queries such as:
+
 - **Energy Chain Tracing**: From any space, trace complete energy supply chain to building service entrance
 - **Equipment Discovery**: Find all equipment of specific types serving designated areas
 - **Impact Analysis**: Identify all spaces affected by equipment outages or system changes

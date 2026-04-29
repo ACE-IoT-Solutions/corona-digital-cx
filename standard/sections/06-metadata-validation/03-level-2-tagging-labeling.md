@@ -9,6 +9,7 @@ The tagging and labeling implementation must be validated against the project-sp
 
 ### Tag Completeness Validation
 All BAS components must be validated for:
+
 - Presence of required base tags as defined by the project tagging standard
 - Appropriate equipment classification tags
 - Point type and measurement classification tags
@@ -17,6 +18,7 @@ All BAS components must be validated for:
 
 ### Tag Consistency Validation
 Tagging implementation must demonstrate:
+
 - Consistent application of the designated tagging vocabulary
 - Proper tag combinations and relationships
 - Absence of conflicting or contradictory tag assignments
@@ -27,17 +29,20 @@ Tagging implementation must demonstrate:
 The following examples illustrate validation criteria that would be applied based on project-specific tagging standards:
 
 ### Industry Standard Tagging Examples
+
 - **Project Haystack**: Validation against Haystack tag definitions and entity relationships (e.g., `site`, `equip`, `point`, `sensor`, `cmd`, `sp`, `air`, `temp`)
 - **Brick Schema**: Validation against Brick ontology classes and relationships
 - **Custom Taxonomy**: Validation against project-specific tag dictionary and relationship rules
 
 ### Tag Coverage Requirements Examples
+
 - **Base Tags**: All entities have required foundational tags (site, equipment type, point classification)
 - **Measurement Tags**: All sensor and setpoint entities include units, measurement type, and substance tags
 - **Relationship Tags**: All points are properly linked to parent equipment through relationship tags
 - **Location Tags**: All entities include appropriate spatial hierarchy tags
 
 ### Schema Compliance Examples
+
 - **Required Tag Combinations**: Verify mandatory tag patterns (e.g., temperature sensors must have `temp` + `sensor` + substance tag)
 - **Prohibited Tag Conflicts**: Identify mutually exclusive tag combinations
 - **Enumeration Validation**: Confirm enumerated tags use only allowed values from the specified vocabulary

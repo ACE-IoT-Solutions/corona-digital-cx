@@ -9,6 +9,7 @@ The IP addressing implementation must be validated against the project-specific 
 
 ### Subnet Configuration Validation
 Network subnet implementation must be verified for:
+
 - Compliance with documented subnet design
 - Adequate address space for current and planned devices
 - Proper subnet isolation and VLAN configuration
@@ -19,12 +20,14 @@ Network subnet implementation must be verified for:
 The following examples illustrate validation criteria that would be applied based on project-specific requirements:
 
 ### Address Assignment Validation
+
 - **Static IP Verification**: Confirm devices configured with static IP addresses match the IP Address Schedule
 - **DHCP Reservation Verification**: Verify MAC-address-based DHCP reservations are properly configured and functional
 - **Dynamic Address Prohibition**: Confirm no devices are using randomly assigned or dynamic DHCP addresses
 
 ### Subnet Capacity Validation  
 Examples of subnet capacity validation against project requirements:
+
 - **Subnet A Example**: 10.100.10.0/24 (253 usable addresses) - verify device count does not exceed capacity threshold per project requirements
 - **Subnet B Example**: 10.100.11.0/26 (61 usable addresses) - validate current device count against design capacity
 - **Subnet C Example**: 10.100.11.64/28 (13 usable addresses) - confirm subnet size meets minimum requirements or has documented exception
