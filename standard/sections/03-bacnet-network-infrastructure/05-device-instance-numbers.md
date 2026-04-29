@@ -8,9 +8,17 @@ Device IDs shall follow a structured, documented scheme that allows for easy ide
 
 **Example ID:** `102501` (Site 10, AHU Type 25, Instance 01)
 
-Device IDs shall not be re-used, even if a device is decommissioned.
+Device IDs shall not be re-used, even if a device is decommissioned. A previously assigned Device Instance Number may remain in service only when a failed device is replaced on a like-for-like basis and the replacement assumes the same documented device identity.
 
 The contractor shall submit a complete schedule of all Device Instance Numbers.
+
+## Verification
+
+#### Device Instance Verification
+- **Global Uniqueness**: Verify that no duplicate Device Instance Numbers exist on the internetwork
+- **Scheme Consistency**: Confirm Device Instance Numbers follow the documented project numbering scheme
+- **Schedule Completeness**: Verify the submitted Device Instance schedule includes all commissioned BACnet devices
+- **Replacement Traceability**: Where a failed device was replaced like-for-like, confirm the retained Device Instance Number is documented in turnover records
 
 ---
 

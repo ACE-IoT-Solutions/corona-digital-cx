@@ -82,6 +82,11 @@ class BuildConfig:
         return self.get("project.name", "Documentation")
 
     @property
+    def project_title(self) -> str:
+        """Get display title."""
+        return self.get("project.title", self.project_name)
+
+    @property
     def project_author(self) -> str:
         """Get project author."""
         return self.get("project.author", "Unknown")

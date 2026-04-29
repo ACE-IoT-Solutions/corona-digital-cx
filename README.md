@@ -8,7 +8,7 @@ This repository is the working source for an open standard that defines validati
 
 If you are new to the project, use one of these entry points:
 
-- **Read the standard**: start in [`standard/sections/`](./standard/sections/)
+- **Read the standard**: <https://ace-iot-solutions.github.io/corona-digital-cx/>
 - **Contribute content**: read [`CONTRIBUTING.md`](./CONTRIBUTING.md)
 - **Set up the build locally**: read [`docs/QUICKSTART.md`](./docs/QUICKSTART.md)
 - **Understand the build system**: read [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md)
@@ -50,6 +50,7 @@ If you are deciding where to start, content clarifications and examples are usua
 
 ## Reading The Standard
 
+- Read the published standard at <https://ace-iot-solutions.github.io/corona-digital-cx/>
 - Browse the source in [`standard/sections/`](./standard/sections/)
 - Download compiled artifacts from the repository [Releases](https://github.com/ACE-IoT-Solutions/corona-digital-cx/releases)
 - Build local HTML/PDF outputs with `uv run mdoc-build --pdf --html`
