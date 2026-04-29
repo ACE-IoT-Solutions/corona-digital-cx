@@ -14,6 +14,8 @@ All integration platforms and supervisory systems shall use open, non-proprietar
 - Modbus TCP/IP for compatible devices
 - SNMP for network equipment monitoring
 - Standard IT protocols (HTTPS, REST API, MQTT) where appropriate
+  - REST APIs should follow industry standard conventions, using OpenAPI or equivalent quality standards
+  - Exceptions to normative HTTP verb use must be noted and approved by owner
 - Proprietary protocols are prohibited for device-to-supervisor or system-to-system communication
 
 ### 3.9.2 Network Integration Controller (NIC) Openness
