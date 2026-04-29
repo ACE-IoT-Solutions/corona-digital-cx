@@ -166,9 +166,19 @@ class PDFGenerator:
         </header>
 
         <main class="document-frame">
-            <article class="content prose">
-                {html_content}
-            </article>
+            <div class="document-layout">
+                <aside class="toc-shell" aria-label="Document table of contents">
+                    <div class="toc-card">
+                        <div class="toc-card__eyebrow">Navigate</div>
+                        <div class="toc-card__title">On This Page</div>
+                        <nav id="table-of-contents" class="toc-nav"></nav>
+                    </div>
+                </aside>
+
+                <article class="content prose" id="document-content">
+                    {html_content}
+                </article>
+            </div>
         </main>
 
         <footer class="site-footer">
@@ -176,6 +186,60 @@ class PDFGenerator:
             <p>Licensed under {self.config.project_license}</p>
         </footer>
     </div>
+    <script>
+    (() => {{
+        const root = document.getElementById("document-content");
+        const nav = document.getElementById("table-of-contents");
+        if (!root || !nav) return;
+
+        const headings = [...root.querySelectorAll("h1[id], h2[id], h3[id]")];
+        if (!headings.length) {{
+            nav.parentElement.style.display = "none";
+            return;
+        }}
+
+        const list = document.createElement("ol");
+        list.className = "toc-list";
+
+        for (const heading of headings) {{
+            const item = document.createElement("li");
+            const level = heading.tagName.toLowerCase();
+            item.className = `toc-item toc-item--${{level}}`;
+
+            const link = document.createElement("a");
+            link.href = `#${{heading.id}}`;
+            link.textContent = heading.textContent.trim();
+            item.appendChild(link);
+            list.appendChild(item);
+        }}
+
+        nav.appendChild(list);
+
+        const links = [...nav.querySelectorAll("a")];
+        const byId = new Map(links.map((link) => [link.getAttribute("href")?.slice(1), link]));
+
+        const observer = new IntersectionObserver(
+            (entries) => {{
+                const visible = entries
+                    .filter((entry) => entry.isIntersecting)
+                    .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+
+                if (!visible.length) return;
+
+                const activeId = visible[0].target.id;
+                for (const link of links) {{
+                    link.classList.toggle("is-active", link.getAttribute("href") === `#${{activeId}}`);
+                }}
+            }},
+            {{
+                rootMargin: "-20% 0px -70% 0px",
+                threshold: [0, 1],
+            }},
+        );
+
+        for (const heading of headings) observer.observe(heading);
+    }})();
+    </script>
 </body>
 </html>
 """

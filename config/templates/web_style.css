@@ -116,6 +116,93 @@ a:hover {
     overflow: hidden;
 }
 
+.document-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 250px) minmax(0, 1fr);
+    gap: 0;
+    align-items: start;
+}
+
+.toc-shell {
+    position: relative;
+    min-width: 0;
+    padding: 28px 0 28px 28px;
+}
+
+.toc-card {
+    position: sticky;
+    top: 24px;
+    padding: 22px 18px 22px 20px;
+    border-right: 1px solid rgba(15, 92, 99, 0.08);
+}
+
+.toc-card__eyebrow {
+    margin-bottom: 10px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.toc-card__title {
+    margin-bottom: 14px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #102024;
+}
+
+.toc-nav {
+    min-width: 0;
+}
+
+.toc-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.toc-item {
+    margin: 0;
+    padding: 0;
+}
+
+.toc-item a {
+    display: block;
+    padding: 7px 10px;
+    border-left: 3px solid transparent;
+    border-radius: 0 10px 10px 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 0.88rem;
+    line-height: 1.35;
+    text-decoration: none;
+    color: var(--muted);
+}
+
+.toc-item a:hover {
+    background: rgba(15, 92, 99, 0.06);
+    color: var(--accent-strong);
+}
+
+.toc-item a.is-active {
+    border-left-color: var(--accent);
+    background: rgba(15, 92, 99, 0.1);
+    color: #102024;
+    font-weight: 700;
+}
+
+.toc-item--h2 a {
+    padding-left: 18px;
+    font-size: 0.84rem;
+}
+
+.toc-item--h3 a {
+    padding-left: 28px;
+    font-size: 0.8rem;
+}
+
 .content {
     width: 100%;
     max-width: 860px;
@@ -197,6 +284,11 @@ a:hover {
     margin: 0 0 18px;
 }
 
+.prose p + ul,
+.prose p + ol {
+    margin-top: -4px;
+}
+
 .prose strong {
     color: #11242a;
 }
@@ -204,17 +296,24 @@ a:hover {
 .prose ul,
 .prose ol {
     margin: 0 0 24px;
-    padding-left: 1.4rem;
+    padding-left: 1.5rem;
 }
 
 .prose li {
-    margin: 0 0 10px;
+    margin: 0 0 12px;
+    padding-left: 0.15rem;
 }
 
 .prose li > ul,
 .prose li > ol {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.prose ol > li::marker,
+.prose ul > li::marker {
+    color: var(--accent-strong);
+    font-weight: 700;
 }
 
 .prose hr {
@@ -308,6 +407,16 @@ a:hover {
 
 .site-footer p {
     margin: 6px 0;
+}
+
+@media (max-width: 1080px) {
+    .document-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .toc-shell {
+        display: none;
+    }
 }
 
 @media (max-width: 900px) {

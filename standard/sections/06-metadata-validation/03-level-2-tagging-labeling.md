@@ -51,47 +51,55 @@ The following examples illustrate validation criteria that would be applied base
 
 ### Data Model Parsing Method
 1. **Schema Validation**
-   - **Objective**: Verify submitted data model conforms to specified format and schema
-   - **Method**: Automated parsing and schema validation against project-specified data model format
-   - **Acceptance Criteria**: 100% successful parsing with zero schema validation errors
+
+    - **Objective**: Verify submitted data model conforms to specified format and schema
+    - **Method**: Automated parsing and schema validation against project-specified data model format
+    - **Acceptance Criteria**: 100% successful parsing with zero schema validation errors
 
 2. **Tag Dictionary Compliance**
-   - **Objective**: Confirm all tags are from approved vocabulary
-   - **Method**: Cross-reference all tags against the project-specified tag dictionary or ontology
-   - **Acceptance Criteria**: 100% of tags are recognized terms from the approved vocabulary
+
+    - **Objective**: Confirm all tags are from approved vocabulary
+    - **Method**: Cross-reference all tags against the project-specified tag dictionary or ontology
+    - **Acceptance Criteria**: 100% of tags are recognized terms from the approved vocabulary
 
 ### Tag Completeness Testing Method
 1. **Required Tag Coverage**
-   - **Objective**: Verify all entities have mandatory tags per project requirements
-   - **Method**: Automated queries to identify entities missing required tag categories
-   - **Acceptance Criteria**: 100% of entities have all required base tags as defined by project tagging standard
+
+    - **Objective**: Verify all entities have mandatory tags per project requirements
+    - **Method**: Automated queries to identify entities missing required tag categories
+    - **Acceptance Criteria**: 100% of entities have all required base tags as defined by project tagging standard
 
 2. **Tag Relationship Validation**
-   - **Objective**: Confirm proper parent-child and system relationships through tags
-   - **Method**: Graph analysis and relationship queries to verify tagged connections
-   - **Acceptance Criteria**: 100% of points are properly linked to parent equipment and system hierarchies
+
+    - **Objective**: Confirm proper parent-child and system relationships through tags
+    - **Method**: Graph analysis and relationship queries to verify tagged connections
+    - **Acceptance Criteria**: 100% of points are properly linked to parent equipment and system hierarchies
 
 ### Semantic Correctness Verification Method (Sampling-Based)
 1. **Equipment Tag Accuracy**
-   - **Objective**: Verify equipment tags accurately represent physical equipment types and functions
-   - **Method**: Sample-based verification of at least one instance of each unique equipment type
-   - **Acceptance Criteria**: 100% of sampled equipment have semantically correct tag combinations
+
+    - **Objective**: Verify equipment tags accurately represent physical equipment types and functions
+    - **Method**: Sample-based verification of at least one instance of each unique equipment type
+    - **Acceptance Criteria**: 100% of sampled equipment have semantically correct tag combinations
 
 2. **Point Tag Accuracy**
-   - **Objective**: Verify point tags accurately represent measurement types, units, and functions
-   - **Method**: Sample-based verification covering all point type categories (sensors, commands, setpoints, alarms)
-   - **Acceptance Criteria**: 100% of sampled points have semantically accurate tag combinations and proper units of measure
+
+    - **Objective**: Verify point tags accurately represent measurement types, units, and functions
+    - **Method**: Sample-based verification covering all point type categories (sensors, commands, setpoints, alarms)
+    - **Acceptance Criteria**: 100% of sampled points have semantically accurate tag combinations and proper units of measure
 
 ### Query Validation Method
 1. **Functional Query Testing**
-   - **Objective**: Verify tagged data supports intended analytical and operational queries
-   - **Method**: Execute a suite of predefined validation queries designed to test tag completeness and correctness
-   - **Acceptance Criteria**: All validation queries return expected results without errors
+
+    - **Objective**: Verify tagged data supports intended analytical and operational queries
+    - **Method**: Execute a suite of predefined validation queries designed to test tag completeness and correctness
+    - **Acceptance Criteria**: All validation queries return expected results without errors
 
 2. **Data Accessibility Testing**
-   - **Objective**: Confirm tagged data enables automated discovery and filtering
-   - **Method**: Test ability to programmatically find and filter entities by tag combinations
-   - **Acceptance Criteria**: All major equipment types and point categories can be successfully discovered and filtered using tag-based queries
+
+    - **Objective**: Confirm tagged data enables automated discovery and filtering
+    - **Method**: Test ability to programmatically find and filter entities by tag combinations
+    - **Acceptance Criteria**: All major equipment types and point categories can be successfully discovered and filtered using tag-based queries
 
 ---
 

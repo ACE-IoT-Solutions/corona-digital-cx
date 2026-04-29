@@ -36,30 +36,35 @@ Examples of subnet capacity validation against project requirements:
 
 ### IP Address Schedule Verification Method
 1. **Documentation Completeness Check**
-   - **Objective**: Verify IP Address Schedule includes all BAS devices
-   - **Method**: Cross-reference schedule against network discovery results
-   - **Acceptance Criteria**: 100% of discovered devices are documented in schedule
+
+    - **Objective**: Verify IP Address Schedule includes all BAS devices
+    - **Method**: Cross-reference schedule against network discovery results
+    - **Acceptance Criteria**: 100% of discovered devices are documented in schedule
 
 2. **Address Assignment Verification**
-   - **Objective**: Confirm devices are configured per the documented addressing scheme
-   - **Method**: Network scanning to verify actual IP configurations match schedule
-   - **Acceptance Criteria**: 100% correlation between documented and actual IP assignments
+
+    - **Objective**: Confirm devices are configured per the documented addressing scheme
+    - **Method**: Network scanning to verify actual IP configurations match schedule
+    - **Acceptance Criteria**: 100% correlation between documented and actual IP assignments
 
 ### Network Configuration Testing Method
 1. **Subnet Verification**
-   - **Objective**: Validate subnet configuration and device placement
-   - **Method**: Network topology discovery and subnet boundary testing
-   - **Acceptance Criteria**: All devices are on correct subnets with proper network masks and gateways
+
+    - **Objective**: Validate subnet configuration and device placement
+    - **Method**: Network topology discovery and subnet boundary testing
+    - **Acceptance Criteria**: All devices are on correct subnets with proper network masks and gateways
 
 2. **VLAN Configuration Testing** (If Applicable)
-   - **Objective**: Verify VLAN tagging and membership
-   - **Method**: VLAN discovery and traffic flow analysis
-   - **Acceptance Criteria**: All BAS devices are on designated VLANs with proper isolation from other networks
+
+    - **Objective**: Verify VLAN tagging and membership
+    - **Method**: VLAN discovery and traffic flow analysis
+    - **Acceptance Criteria**: All BAS devices are on designated VLANs with proper isolation from other networks
 
 3. **Connectivity Validation**
-   - **Objective**: Confirm all devices can communicate as required by system design
-   - **Method**: Automated ping testing and BACnet communication verification
-   - **Acceptance Criteria**: 100% of devices respond to network communication tests
+
+    - **Objective**: Confirm all devices can communicate as required by system design
+    - **Method**: Automated ping testing and BACnet communication verification
+    - **Acceptance Criteria**: 100% of devices respond to network communication tests
 
 ---
 
