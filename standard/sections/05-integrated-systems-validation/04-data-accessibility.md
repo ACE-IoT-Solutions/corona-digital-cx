@@ -4,6 +4,8 @@
 
 The ultimate value of validated digital infrastructure lies in its usability for building operations and advanced applications. This section establishes performance requirements for data access, visualization responsiveness, and system usability to ensure that correctly structured data is also performant and accessible.
 
+Section 7 supplements these performance requirements with HMI graphics content, interaction, data-quality, and operator-task acceptance. Its test plan shall use the applicable limits below and define additional limits for uncovered cases; successful timing tests alone do not establish effective HMI operation.
+
 ## Requirements
 
 ### 5.4.1 Graphical User Interface Performance
@@ -81,12 +83,14 @@ Where programmatic data access is provided via APIs:
 3. Record time until graphic fully displays with all values populated
 4. Change field setpoint and measure time until graphic updates
 5. Navigate to different graphic and measure transition time
-6. Repeat test 3 times and average results
+6. Apply the Section 7.2 timing protocol: at least 10 runs per applicable configuration and metric, including cold/warm call-ups and the specified user loads; retain raw measurements and report median and maximum
 
 **Acceptance:**
-- Graphic display: ≤5 seconds (tested: 3.2 seconds average) ✓
-- Value update: ≤8 seconds (tested: 5.1 seconds average) ✓
-- Navigation: ≤3 seconds (tested: 1.8 seconds average) ✓
+- Graphic display: ≤5 seconds (illustrative maximum: 3.2 seconds) ✓
+- Value update: ≤8 seconds (illustrative maximum: 5.1 seconds) ✓
+- Navigation: ≤3 seconds (illustrative maximum: 1.8 seconds) ✓
+
+These are illustrative results, not project evidence. Each measured run shall meet the applicable limit; an average shall not conceal a failed run.
 
 **Result:** GUI performance meets all specified criteria.
 

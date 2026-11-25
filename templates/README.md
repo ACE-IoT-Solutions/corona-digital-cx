@@ -22,6 +22,10 @@ Use this when adding new requirement subsections (e.g., 3.8, 4.4, etc.).
 
 ## How to Use Templates
 
+### HMI Acceptance Evidence
+
+For Section 7, copy `hmi-test-record.csv` for verification results and `hmi-operator-scorecard.csv` for installed operator task trials. Create one row per executed test or trial, link supporting logs and observations, and retain correction/retest history. These header-only templates do not constitute acceptance evidence until completed and reviewed under the approved HMI acceptance plan.
+
 ### Adding a New Section
 
 1. Create a new folder in `standard/sections/` with the appropriate numeric prefix:
