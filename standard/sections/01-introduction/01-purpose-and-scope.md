@@ -18,15 +18,17 @@ This standard applies to the validation and verification of:
 - System interoperability and data accessibility
 - Cybersecurity controls for operational technology networks
 - Software licensing and vendor lock-in prevention
+- BMS operator-interface graphics, trustworthy state presentation, and task-based HMI acceptance
 - All control systems and devices associated with mechanical (HVAC) and plumbing systems, and integrated building systems that exchange data with the BAS
 
-The validation process covers five primary areas:
+The validation process covers six primary areas:
 
 1. **General Requirements**: Project roles, responsibilities, coordination, and cybersecurity validation
 2. **BACnet Network Infrastructure Validation**: Verification of network architecture, addressing, device configuration, communication protocols, and software interoperability
 3. **Integrated Systems Validation**: Validation of lighting controls, utility metering, and other systems that interface with the BAS
 4. **Metadata Validation**: Three progressive levels of digital representation validation, from naming conventions to semantic modeling
 5. **Data Accessibility**: Performance requirements for data access, visualization, and system responsiveness
+6. **HMI Graphics Validation**: Controlled design requirements, source-to-display verification, failure and command testing, and installed operator task validation (Section 7)
 
 ## 1.3 Relationship to System Design Standards
 

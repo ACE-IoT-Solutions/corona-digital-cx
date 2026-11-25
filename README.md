@@ -33,6 +33,9 @@ The standard covers digital commissioning requirements for control systems and d
 - BACnet network infrastructure validation
 - device configuration and communication requirements
 - progressive metadata validation from naming conventions through semantic models
+- BMS HMI graphics requirements, source-to-display verification, and operator task validation
+
+The proposed HMI addition is documented in the [BMS graphics PR proposal](docs/proposals/bms-hmi-graphics-pr.md); its specifications and acceptance procedures are in [Section 7](standard/sections/07-hmi-graphics-validation/01-overview.md).
 
 The standard does **not** prescribe a single BAS design approach. It defines what must be validated regardless of the design standard, naming convention, or configuration method used on a project.
 
